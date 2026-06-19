@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ultimate Date Planner 💖</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    font-family:Arial;
+    overflow:hidden;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    width:320px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    position:relative;
+    z-index:2;
+}
+
+select,button{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border-radius:10px;
+}
+
+button{
+    background:#ff4d6d;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+#result{
+    display:none;
+    margin-top:15px;
+    background:#fff0f3;
+    padding:10px;
+    border-radius:10px;
+    text-align:left;
+}
+
+.heart{
+    position:absolute;
+    font-size:20px;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(100vh); opacity:0;}
+    50%{opacity:1;}
+    100%{transform:translateY(-10vh); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+
+<div class="card">
+    <h2>💖 Ultimate Date Planner</h2>
+
+    <select id="place">
+        <option value="">Select Place 📍</option>
+        <option>Beach 🌊</option>
+        <option>Rooftop Cafe ☕</option>
+        <option>Park 🌳</option>
+        <option>Movie Cinema 🎬</option>
+    </select>
+
+    <select id="time">
+        <option value="">Select Time 🕒</option>
+        <option>Morning 🌅</option>
+        <option>Evening 🌇</option>
+        <option>Night 🌙</option>
+    </select>
+
+    <select id="food">
+        <option value="">Select Food 🍕</option>
+        <option>Pizza 🍕</option>
+        <option>Burger 🍔</option>
+        <option>Biryani 🍛</option>
+        <option>Ice Cream 🍦</option>
+    </select>
+
+    <button onclick="createDate()">Create My Date 💖</button>
+
+    <div id="result"></div>
+
+    <button onclick="share()" id="shareBtn" style="display:none;background:#25D366;">
+        Share on WhatsApp 📲
+    </button>
+</div>
+
+<script>
+function createHearts(){
+    for(let i=0;i<15;i++){
+        let h = document.createElement("div");
+        h.className="heart";
+        h.innerHTML="💖";
+        h.style.left=Math.random()*100+"vw";
+        h.style.animationDuration=(3+Math.random()*5)+"s";
+        document.body.appendChild(h);
+
+        setTimeout(()=>h.remove(),7000);
+    }
+}
+
+function createDate(){
+    let place=document.getElementById("place").value;
+    let time=document.getElementById("time").value;
+    let food=document.getElementById("food").value;
+
+    if(!place || !time || !food){
+        alert("Complete all selections 💕");
+        return;
+    }
+
+    document.getElementById("music").play();
+    createHearts();
+
+    document.getElementById("result").style.display="block";
+    document.getElementById("result").innerHTML=`
+        💖 <b>Your Romantic Date Plan</b><br><br>
+        📍 ${place}<br>
+        🕒 ${time}<br>
+        🍕 ${food}<br><br>
+        💌 Can’t wait for this date!
+    `;
+
+    document.getElementById("shareBtn").style.display="block";
+}
+
+function share(){
+    let text="💖 My Date Plan:\\n📍 Place\\n🕒 Time\\n🍕 Food\\nMade with love 💕";
+    window.open("https://wa.me/?text="+encodeURIComponent(text));
+}
+</script>
+
+</body>
+</html>
